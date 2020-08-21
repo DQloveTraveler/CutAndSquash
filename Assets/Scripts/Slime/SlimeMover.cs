@@ -15,13 +15,9 @@ namespace Slime
 
         void Awake()
         {
-            _InitializeField();
-        }
-
-        private void _InitializeField()
-        {
             _rigidbody = GetComponent<Rigidbody2D>();
         }
+
 
         void Start()
         {

@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SlimeAnimator))]
-[RequireComponent(typeof(SlimeMover))]
 public class SlimeController : MonoBehaviour
 {
 
@@ -33,7 +31,7 @@ public class SlimeController : MonoBehaviour
     private void Initialize()
     {
         EnemyManager.Instance.AddList(this);
-        _slimeAnimator = GetComponent<SlimeAnimator>();
+        _slimeAnimator = new SlimeAnimator(GetComponent<Animator>());
         _slimeMover = GetComponent<SlimeMover>();
         _collider = GetComponent<Collider2D>();
     }

@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace Slime
 {
-    public class SlimeAnimator : MonoBehaviour
+    public class SlimeAnimator
     {
 
         private Animator _animator;
 
-
-        void Awake()
+        public SlimeAnimator(Animator animator)
         {
-            _animator = GetComponent<Animator>();
+            _animator = animator;
         }
 
         public void Cut()
