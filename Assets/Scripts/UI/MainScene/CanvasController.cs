@@ -15,6 +15,7 @@ namespace UI
         [SerializeField] public UnityEvent onCallRanking = null;
 
         private Coroutine _coroutine;
+        private readonly string gameStartText = "スタート";
 
         void Awake()
         {
@@ -34,7 +35,7 @@ namespace UI
                 switch (count)
                 {
                     case 0:
-                        readyText.text = "スタート";
+                        readyText.text = gameStartText;
                         if (_coroutine == null)
                             _coroutine = StartCoroutine(_SetActive(readyText.gameObject, false, 0.9f));
                         break;
