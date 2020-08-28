@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    [SerializeField] private Animator canvas1;
-    [SerializeField] private Animator canvas2;
+    [SerializeField] private Animator canvas1 = null;
+    [SerializeField] private Animator canvas2 = null;
     [Space]
-    [SerializeField] private UnityEvent clickEvent;
+    [SerializeField] private UnityEvent clickEvent = null;
 
 
     // Start is called before the first frame update

@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class TitleSlime : MonoBehaviour
 {
-    //AnimationEventからエラーを吐かれないための空メソッド
+    #region AnimationEvent用メソッド
     public void PlayAudio()
     {
         AudioManager.Instance.PlayOneShot(8);
     }
-    public void CoreColliderOFF() { }
-    public void CopyMe() { }
-    public void DestroySelf() { }
-
+    public void CoreColliderOFF() {}
+    public void CopyMe() {}
+    public void DestroySelf() {}
+    #endregion;
 }

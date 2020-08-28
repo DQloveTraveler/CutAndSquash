@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
+public class SlimeManager : SingletonMonoBehaviour<SlimeManager>
 {
     public bool IsGameOver => gameOverTimeCounter > 1;
 

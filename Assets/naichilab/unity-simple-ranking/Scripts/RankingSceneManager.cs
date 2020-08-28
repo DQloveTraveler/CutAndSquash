@@ -16,18 +16,18 @@ namespace naichilab
         private const string COLUMN_SCORE = "score";
         private const string COLUMN_NAME = "name";
 
-        [SerializeField] TMP_FontAsset[] fontAssets;
-        [SerializeField] TextMeshProUGUI captionLabel;
-        [SerializeField] TextMeshProUGUI scoreLabel;
-        [SerializeField] TextMeshProUGUI highScoreLabel;
-        [SerializeField] InputField nameInputField;
-        [SerializeField] Button sendScoreButton;
-        [SerializeField] Button closeButton;
-        [SerializeField] RectTransform scrollViewContent;
-        [SerializeField] GameObject rankingNodePrefab;
-        [SerializeField] GameObject readingNodePrefab;
-        [SerializeField] GameObject notFoundNodePrefab;
-        [SerializeField] GameObject unavailableNodePrefab;
+        [SerializeField] TMP_FontAsset[] fontAssets = null;
+        [SerializeField] TextMeshProUGUI captionLabel = null;
+        [SerializeField] TextMeshProUGUI scoreLabel = null;
+        [SerializeField] TextMeshProUGUI highScoreLabel = null;
+        [SerializeField] InputField nameInputField = null;
+        [SerializeField] Button sendScoreButton = null;
+        [SerializeField] Button closeButton = null;
+        [SerializeField] RectTransform scrollViewContent = null;
+        [SerializeField] GameObject rankingNodePrefab = null;
+        [SerializeField] GameObject readingNodePrefab = null;
+        [SerializeField] GameObject notFoundNodePrefab = null;
+        [SerializeField] GameObject unavailableNodePrefab = null;
 
         private string _objectid = null;
 

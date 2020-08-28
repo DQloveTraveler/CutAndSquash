@@ -8,8 +8,8 @@ namespace UI
     public class LimitTimer : MonoBehaviour
     {
         [SerializeField] private int limitTime = 60;
-        [SerializeField] private TextMeshProUGUI timeText;
-        [SerializeField] private Color warningColor;
+        [SerializeField] private TextMeshProUGUI timeText = null;
+        [SerializeField] private Color warningColor = Color.red;
 
         public bool IsGameOver { get; private set; } = false;
         private float elapsedTime = 0;

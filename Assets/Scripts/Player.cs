@@ -5,8 +5,8 @@ using Slime;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject slashEffect;
-    [SerializeField] private GameObject handEffect;
+    [SerializeField] private GameObject slashEffect = null;
+    [SerializeField] private GameObject handEffect = null;
 
     private Camera _camera;
     private GameObject _instanceSlash = null;

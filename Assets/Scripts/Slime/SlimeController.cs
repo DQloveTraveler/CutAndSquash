@@ -6,9 +6,9 @@ using UnityEngine;
 public class SlimeController : MonoBehaviour
 {
 
-    [SerializeField] private GameObject slimePrefab;
-    [SerializeField] private Transform[] copyPoints;
-    [SerializeField] private Collider2D coreCollider;
+    [SerializeField] private GameObject slimePrefab = null;
+    [SerializeField] private Transform[] copyPoints = null;
+    [SerializeField] private Collider2D coreCollider = null;
 
     private bool IsCut { get; set; } = false;
 
@@ -20,6 +20,13 @@ public class SlimeController : MonoBehaviour
     {
         Initialize();
     }
+    private void Initialize()
+    {
+        SlimeManager.Instance.AddList(this);
+        _slimeAnimator = new SlimeAnimator(GetComponent<Animator>());
+        _slimeMover = GetComponent<SlimeMover>();
+        _collider = GetComponent<Collider2D>();
+    }
 
     void Start()
     {
@@ -28,19 +35,12 @@ public class SlimeController : MonoBehaviour
         IsCut = false;
     }
 
-    private void Initialize()
-    {
-        EnemyManager.Instance.AddList(this);
-        _slimeAnimator = new SlimeAnimator(GetComponent<Animator>());
-        _slimeMover = GetComponent<SlimeMover>();
-        _collider = GetComponent<Collider2D>();
-    }
 
     public void Cut()
     {
         if (!IsCut)
         {
-            EnemyManager.Instance.RemoveList(this);
+            SlimeManager.Instance.RemoveList(this);
             _slimeAnimator.Cut();
             _slimeMover.Stop();
             _collider.enabled = false;
@@ -51,7 +51,7 @@ public class SlimeController : MonoBehaviour
     public void Die()
     {
         GameManager.Instance.AddSquashedNum();
-        EnemyManager.Instance.RemoveList(this);
+        SlimeManager.Instance.RemoveList(this);
         _slimeAnimator.Die();
         _slimeMover.Stop();
         _collider.enabled = false;
@@ -69,8 +69,7 @@ public class SlimeController : MonoBehaviour
     }
 
 
-
-    //AnimationEvent用メソッド
+    #region AnimationEvent用メソッド
     public void PlayAudio()
     {
         AudioManager.Instance.PlayOneShot(8);
@@ -100,5 +99,5 @@ public class SlimeController : MonoBehaviour
     {
         Destroy(transform.root.gameObject);
     }
-
+    #endregion
 }

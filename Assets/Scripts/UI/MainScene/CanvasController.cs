@@ -8,11 +8,11 @@ namespace UI
 {
     public class CanvasController : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI readyText;
-        [SerializeField] private GameObject gameOverPanel;
-        [SerializeField] private GameObject scoreZeroPanel;
+        [SerializeField] private TextMeshProUGUI readyText = null;
+        [SerializeField] private GameObject gameOverPanel = null;
+        [SerializeField] private GameObject scoreZeroPanel = null;
         [Space]
-        [SerializeField] public UnityEvent onCallRanking;
+        [SerializeField] public UnityEvent onCallRanking = null;
 
         private Coroutine _coroutine;
 

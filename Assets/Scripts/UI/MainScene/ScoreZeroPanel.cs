@@ -7,8 +7,8 @@ namespace UI
 {
     public class ScoreZeroPanel : MonoBehaviour
     {
-        [SerializeField] private UnityEvent onStart;
-        [SerializeField] private UnityEvent onAnimation;
+        [SerializeField] private UnityEvent onStart = null;
+        [SerializeField] private UnityEvent onAnimation = null;
 
         void Start()
         {

@@ -37,7 +37,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if(EnemyManager.Instance.IsGameOver|| _limitTimer.IsGameOver)
+        if(SlimeManager.Instance.IsGameOver|| _limitTimer.IsGameOver)
         {
             if (!IsGameOver) StartCoroutine(_GameOver());
         }
@@ -60,7 +60,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         yield return _WaitClick(1);
 
-        if(EnemyManager.Instance.SlimeCount > 0)
+        if(SlimeManager.Instance.SlimeCount > 0)
         {
             _ScoreZero();
         }

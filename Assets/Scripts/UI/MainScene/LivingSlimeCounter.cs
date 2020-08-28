@@ -11,7 +11,7 @@ namespace UI
         // Update is called once per frame
         void Update()
         {
-            NumString = EnemyManager.Instance.SlimeCount.ToString();
+            NumString = SlimeManager.Instance.SlimeCount.ToString();
             numText.text = NumString;
         }
     }
