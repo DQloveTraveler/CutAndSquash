@@ -9,7 +9,7 @@ public class Slash : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, lifeTime);
-        AudioManager.Instance.PlayOneShot(7);
+        SEPlayer.Instance.PlayOneShot(SEEnum.Slash);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

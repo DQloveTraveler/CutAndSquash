@@ -31,7 +31,7 @@ public class Hand : MonoBehaviour
     //AnimationEvent用メソッド
     public void Shake()
     {
-        AudioManager.Instance.PlayOneShot(6);
+        SEPlayer.Instance.PlayOneShot(SEEnum.Beat);
         CameraShaker.Instance.Shake(0.2f);
     }
 

@@ -15,7 +15,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
                 instance = (T)FindObjectOfType(t);
                 if (instance == null)
                 {
-                    Instantiate(new GameObject()).AddComponent(t);
+                    var obj = Instantiate(new GameObject(t.ToString())).AddComponent(t);
                 }
             }
 
@@ -27,7 +27,10 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
     {
         // 他のゲームオブジェクトにアタッチされているか調べる
         // アタッチされている場合は破棄する。
-        CheckInstance();
+        if (!CheckInstance())
+        {
+            Destroy(gameObject);
+        }
     }
 
     private bool CheckInstance()
@@ -41,7 +44,6 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
         {
             return true;
         }
-        Destroy(gameObject);
         return false;
     }
 }

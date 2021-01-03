@@ -7,7 +7,7 @@ public class SlimeManager : SingletonMonoBehaviour<SlimeManager>
 {
     public bool IsGameOver => gameOverTimeCounter > 1;
 
-    public static readonly int maxSlimeCount = 50;
+    public static readonly int maxSlimeCount = 100;
 
     private List<SlimeController> slimes = new List<SlimeController>();
     public int SlimeCount => slimes.Count;
@@ -17,8 +17,14 @@ public class SlimeManager : SingletonMonoBehaviour<SlimeManager>
     void Update()
     {
         UpdateList();
-        if (SlimeCount <= 0) gameOverTimeCounter += Time.deltaTime;
-        else gameOverTimeCounter = 0;
+        if (SlimeCount <= 0)
+        {
+            gameOverTimeCounter += Time.deltaTime;
+        }
+        else
+        {
+            gameOverTimeCounter = 0;
+        }
     }
 
     public void AddList(SlimeController newSlime)

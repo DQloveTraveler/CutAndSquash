@@ -14,6 +14,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private LimitTimer _limitTimer;
     private CanvasController _canvasController;
     private ReadyTimer _readyTimer = new ReadyTimer(3);
+    private const float audioDelay_Lose = 1.5f;
+    private const float audioDelay_Bad = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +28,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private IEnumerator _readyState()
     {
-        AudioManager.Instance.Play(0, 0.1f);
+        VoicePlayer.Instance.Play(VoiceEnum.CountDown, 0.1f);
         yield return _readyTimer.StartCountDown();
-        AudioManager.Instance.Play(1);
+        VoicePlayer.Instance.Play(VoiceEnum.Start);
         BGMPlayer.Instance.Play(1);
         _player.enabled = true;
         _limitTimer.enabled = true;
@@ -53,7 +55,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         IsGameOver = true;
         _limitTimer.StopAudio();
         _limitTimer.enabled = false;
-        AudioManager.Instance.Play(2);
+        VoicePlayer.Instance.Play(VoiceEnum.Finish);
         BGMPlayer.Instance.Stop();
         _canvasController.GameOver();
         Destroy(_player);
@@ -81,8 +83,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void _ScoreZero()
     {
-        AudioManager.Instance.Play(12, 1.5f);
-        AudioManager.Instance.Play(3, 2);
+        SEPlayer.Instance.Play(SEEnum.Lose, audioDelay_Lose);
+        VoicePlayer.Instance.Play(VoiceEnum.Bad, audioDelay_Bad);
         _canvasController.ScoreZero();
     }
 
@@ -98,15 +100,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             yield return null;
         }
 
-        AudioManager.Instance.Play(13);
+        SEPlayer.Instance.Play(SEEnum.Win);
 
         if (RSM.IsHighScore)
         {
-            AudioManager.Instance.Play(5);
+            VoicePlayer.Instance.Play(VoiceEnum.Congratulations);
         }
         else
         {
-            AudioManager.Instance.Play(4);
+            VoicePlayer.Instance.Play(VoiceEnum.Good);
         }
     }
 

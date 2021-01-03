@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PreLoad : MonoBehaviour
 {
-    void Start()
-    {
-        StartCoroutine(_WaitClick());
-    }
-
-    private IEnumerator _WaitClick()
+    //UnityRoomはゲーム画面をクリックしないと音がならないという仕様のため
+    //クリック待ちをしている
+    IEnumerator Start()
     {
         while (true)
         {

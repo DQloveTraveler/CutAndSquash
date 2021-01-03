@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RankingCanvas : MonoBehaviour
 {
-    public void PlayAudio(int audioNum)
+    public void PlayAudio(SEEnum name)
     {
-        AudioManager.Instance.Play(audioNum);
+        SEPlayer.Instance.Play(name);
     }
 }

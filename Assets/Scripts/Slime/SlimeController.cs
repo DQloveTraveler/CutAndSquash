@@ -72,7 +72,7 @@ public class SlimeController : MonoBehaviour
     #region AnimationEvent用メソッド
     public void PlayAudio()
     {
-        AudioManager.Instance.PlayOneShot(8);
+        SEPlayer.Instance.PlayOneShot(SEEnum.Slime);
     }
 
     public void CoreColliderOFF()

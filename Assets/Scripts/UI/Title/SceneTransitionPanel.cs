@@ -26,7 +26,9 @@ namespace UI
         public void StartTransition()
         {
             if (_startingCoroutine == null)
+            {
                 _startingCoroutine = StartCoroutine(_StartTransition());
+            }
         }
 
         private IEnumerator _StartTransition()
@@ -39,7 +41,10 @@ namespace UI
                 childs[randomValue].eulerAngles = new Vector3(0, 0, randomAngle);
                 childs[randomValue].gameObject.SetActive(true);
                 childs.RemoveAt(randomValue);
-                if(childs.Count % 4 == 0) AudioManager.Instance.PlayOneShot(8);
+                if (childs.Count % 4 == 0)
+                {
+                    SEPlayer.Instance.PlayOneShot(SEEnum.Slime);
+                }
                 yield return wait;
             }
             SceneManager.LoadScene("MainScene");

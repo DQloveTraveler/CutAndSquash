@@ -36,7 +36,10 @@ namespace UI
 
                 if (time <= 10)
                 {
-                    if(time == 10) AudioManager.Instance.Play(11);
+                    if(time == 10)
+                    {
+                        SEPlayer.Instance.Play(SEEnum.Warning);
+                    }
                     _ColorChange();
                 }
 
@@ -59,7 +62,7 @@ namespace UI
 
         public void StopAudio()
         {
-            AudioManager.Instance.Stop(11);
+            SEPlayer.Instance.Stop(SEEnum.Warning);
         }
     }
 }
