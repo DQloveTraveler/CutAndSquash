@@ -6,7 +6,8 @@ public class Hand : MonoBehaviour
 {
     [SerializeField] private float lifeTime = 0.5f;
 
-    private Collider2D _collider;
+    private readonly float _cameraShakeDuration = 0.2f;
+    private Collider2D _collider = null;
 
     void Awake()
     {
@@ -32,7 +33,7 @@ public class Hand : MonoBehaviour
     public void Shake()
     {
         SEPlayer.Instance.PlayOneShot(SEEnum.Beat);
-        CameraShaker.Instance.Shake(0.2f);
+        Camera.main.Shake(_cameraShakeDuration);
     }
 
     public void ColliderON()
