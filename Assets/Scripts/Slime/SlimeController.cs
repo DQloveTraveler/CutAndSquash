@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeController : MonoBehaviour
+public class SlimeController : MonoBehaviour, IPoolable
 {
     [SerializeField] private float startSpeed = 10;
     [SerializeField] private GameObject slimePrefab = null;
     [SerializeField] private Transform[] copyPoints = null;
     [SerializeField] private Collider2D coreCollider = null;
+
+
 
     private bool isCut = false;
 
@@ -16,6 +18,7 @@ public class SlimeController : MonoBehaviour
     private SlimeMover _slimeMover;
     private Collider2D _collider;
 
+    public ObjectPool Pool { get; set; }
 
     private void Awake()
     {
@@ -27,7 +30,7 @@ public class SlimeController : MonoBehaviour
         _slimeMover.SetUpVelocity();
     }
 
-    private void SetUp()
+    public void SetUp()
     {
         SlimeManager.Instance.AddList(this);
         _slimeAnimator = new SlimeAnimator(GetComponent<Animator>());
@@ -36,6 +39,7 @@ public class SlimeController : MonoBehaviour
         coreCollider.enabled = true;
         _collider.enabled = true;
         isCut = false;
+        gameObject.SetActive(true);
     }
 
     private void FixedUpdate()
@@ -74,6 +78,12 @@ public class SlimeController : MonoBehaviour
     {
         _slimeAnimator.Stop();
     }
+
+    public void Sleep()
+    {
+        gameObject.SetActive(false);
+    }
+
 
 
     #region AnimationEvent用メソッド
