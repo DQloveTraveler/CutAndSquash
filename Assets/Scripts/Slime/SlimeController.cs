@@ -5,46 +5,53 @@ using UnityEngine;
 
 public class SlimeController : MonoBehaviour
 {
-
+    [SerializeField] private float startSpeed = 10;
     [SerializeField] private GameObject slimePrefab = null;
     [SerializeField] private Transform[] copyPoints = null;
     [SerializeField] private Collider2D coreCollider = null;
 
-    private bool IsCut { get; set; } = false;
+    private bool isCut = false;
 
     private SlimeAnimator _slimeAnimator;
     private SlimeMover _slimeMover;
     private Collider2D _collider;
 
-    void Awake()
+
+    private void Awake()
     {
-        Initialize();
+        SetUp();
     }
-    private void Initialize()
+
+    private void Start()
+    {
+        _slimeMover.SetUpVelocity();
+    }
+
+    private void SetUp()
     {
         SlimeManager.Instance.AddList(this);
         _slimeAnimator = new SlimeAnimator(GetComponent<Animator>());
-        _slimeMover = GetComponent<SlimeMover>();
+        _slimeMover = new SlimeMover(startSpeed, GetComponent<Rigidbody2D>());
         _collider = GetComponent<Collider2D>();
-    }
-
-    void Start()
-    {
         coreCollider.enabled = true;
         _collider.enabled = true;
-        IsCut = false;
+        isCut = false;
     }
 
+    private void FixedUpdate()
+    {
+        _slimeMover.FixedUpdate();
+    }
 
     public void Cut()
     {
-        if (!IsCut)
+        if (!isCut)
         {
             SlimeManager.Instance.RemoveList(this);
             _slimeAnimator.Cut();
             _slimeMover.Stop();
             _collider.enabled = false;
-            IsCut = true;
+            isCut = true;
         }
     }
 

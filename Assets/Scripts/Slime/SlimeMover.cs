@@ -4,40 +4,32 @@ using UnityEngine;
 
 namespace Slime
 {
-    public class SlimeMover : MonoBehaviour
+    public class SlimeMover
     {
-        [SerializeField] private float moveSpeed = 3;
-
+        private float startSpeed;
         private float maxMoveSpeed = 20;
-
         private Rigidbody2D _rigidbody;
 
-
-        void Awake()
+        public SlimeMover(float startSpeed, Rigidbody2D rigidbody2D)
         {
-            _rigidbody = GetComponent<Rigidbody2D>();
+            this.startSpeed = startSpeed;
+            _rigidbody = rigidbody2D;
         }
 
-
-        void Start()
-        {
-            _InitializeVelocity();
-        }
-
-        void FixedUpdate()
+        public void FixedUpdate()
         {
             var velocity = _rigidbody.velocity;
             if (velocity.sqrMagnitude > maxMoveSpeed * maxMoveSpeed)
                 _rigidbody.velocity = velocity.normalized * maxMoveSpeed;
         }
 
-        private void _InitializeVelocity()
+        public void SetUpVelocity()
         {
             var random = Random.Range(0, 360);
             var moveAngle = random * Mathf.Deg2Rad;
             var moveVector = new Vector2(Mathf.Cos(moveAngle), Mathf.Sin(moveAngle));
 
-            _rigidbody.velocity = moveVector * moveSpeed;
+            _rigidbody.velocity = moveVector * startSpeed;
         }
 
         public void Stop()
