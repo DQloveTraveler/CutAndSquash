@@ -5,20 +5,22 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     private IPoolable originalPrefab;
-    private Stack<IPoolable> pool = new Stack<IPoolable>();
+    private readonly Stack<IPoolable> pool = new Stack<IPoolable>();
 
     public void SetOriginal(IPoolable original) => originalPrefab = original;
 
-    public GameObject Generate()
+    public GameObject Generate(Transform generatePoint)
     {
         GameObject obj;
-        if(pool.Count < 0)
+        if(pool.Count > 0)
         {
             obj = pool.Pop().gameObject;
+            obj.transform.position = generatePoint.position;
+            obj.transform.rotation = generatePoint.rotation;
         }
         else
         {
-            obj = Instantiate(originalPrefab.gameObject);
+            obj = Instantiate(originalPrefab.gameObject, generatePoint.position, generatePoint.rotation);
         }
         obj.GetComponent<IPoolable>().SetUp();
         return obj;

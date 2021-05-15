@@ -5,41 +5,39 @@ using UnityEngine;
 
 public class SlimeController : MonoBehaviour, IPoolable
 {
+    #region serialize field
     [SerializeField] private float startSpeed = 10;
-    [SerializeField] private GameObject slimePrefab = null;
     [SerializeField] private Transform[] copyPoints = null;
     [SerializeField] private Collider2D coreCollider = null;
-
+    [SerializeField] private Animator animator;
+    [SerializeField] private new Rigidbody2D rigidbody2D;
+    #endregion
 
 
     private bool isCut = false;
-
     private SlimeAnimator _slimeAnimator;
     private SlimeMover _slimeMover;
     private Collider2D _collider;
 
     public ObjectPool Pool { get; set; }
 
-    private void Awake()
-    {
-        SetUp();
-    }
-
     private void Start()
     {
-        _slimeMover.SetUpVelocity();
+        SetUp();
     }
 
     public void SetUp()
     {
         SlimeManager.Instance.AddList(this);
-        _slimeAnimator = new SlimeAnimator(GetComponent<Animator>());
-        _slimeMover = new SlimeMover(startSpeed, GetComponent<Rigidbody2D>());
+        _slimeAnimator = new SlimeAnimator(animator);
+        _slimeMover = new SlimeMover(startSpeed, rigidbody2D);
         _collider = GetComponent<Collider2D>();
-        coreCollider.enabled = true;
         _collider.enabled = true;
         isCut = false;
+        coreCollider.enabled = true;
         gameObject.SetActive(true);
+
+        _slimeMover.SetVelocity();
     }
 
     private void FixedUpdate()
@@ -74,9 +72,9 @@ public class SlimeController : MonoBehaviour, IPoolable
         _collider.enabled = false;
     }
 
-    public void StopAnimator()
+    public void DesableAnimator()
     {
-        _slimeAnimator.Stop();
+        _slimeAnimator.Desable();
     }
 
     public void Sleep()
@@ -97,24 +95,24 @@ public class SlimeController : MonoBehaviour, IPoolable
         coreCollider.enabled = false;
     }
 
-    public void CopyMe()
+    public void CopySelf()
     {
-        StartCoroutine(_CopyMe());
+        StartCoroutine(_CopySelf());
     }
 
-    private IEnumerator _CopyMe()
+    private IEnumerator _CopySelf()
     {
         foreach (var cp in copyPoints)
         {
-            Instantiate(slimePrefab, cp.position, cp.rotation);
+            SlimeManager.Instance.Generate(cp);
         }
         yield return null;
-        Destroy(gameObject);
+        SlimeManager.Instance.Release(this);
     }
 
     public void DestroySelf()
     {
-        Destroy(transform.root.gameObject);
+        SlimeManager.Instance.Release(this);
     }
     #endregion
 }

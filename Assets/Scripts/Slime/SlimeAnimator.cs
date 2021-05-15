@@ -14,20 +14,13 @@ namespace Slime
             _animator = animator;
         }
 
-        public void Cut()
-        {
-            _animator.SetTrigger("Cut");
-        }
+        public void Cut() => _animator.SetTrigger("Cut");
 
-        public void Die()
-        {
-            _animator.SetTrigger("Die");
-        }
+        public void Die() => _animator.SetTrigger("Die");
 
-        public void Stop()
-        {
-            _animator.enabled = false;
-        }
+        public void Enable() => _animator.enabled = true;
+
+        public void Desable() => _animator.enabled = false;
 
     }
 }

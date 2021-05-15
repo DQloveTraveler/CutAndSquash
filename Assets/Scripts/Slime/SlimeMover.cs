@@ -23,7 +23,7 @@ namespace Slime
                 _rigidbody.velocity = velocity.normalized * maxMoveSpeed;
         }
 
-        public void SetUpVelocity()
+        public void SetVelocity()
         {
             var random = Random.Range(0, 360);
             var moveAngle = random * Mathf.Deg2Rad;
