@@ -9,15 +9,15 @@ public class SlimeController : MonoBehaviour, IPoolable
     [SerializeField] private float startSpeed = 10;
     [SerializeField] private Transform[] copyPoints = null;
     [SerializeField] private Collider2D coreCollider = null;
+    [SerializeField] private Collider2D outCollider = null;
     [SerializeField] private Animator animator;
-    [SerializeField] private new Rigidbody2D rigidbody2D;
+    [SerializeField] private Rigidbody2D rigid2D;
     #endregion
 
 
     private bool isCut = false;
-    private SlimeAnimator _slimeAnimator;
-    private SlimeMover _slimeMover;
-    private Collider2D _collider;
+    private SlimeAnimator slimeAnimator;
+    private SlimeMover slimeMover;
 
     public ObjectPool Pool { get; set; }
 
@@ -29,20 +29,19 @@ public class SlimeController : MonoBehaviour, IPoolable
     public void SetUp()
     {
         SlimeManager.Instance.AddList(this);
-        _slimeAnimator = new SlimeAnimator(animator);
-        _slimeMover = new SlimeMover(startSpeed, rigidbody2D);
-        _collider = GetComponent<Collider2D>();
-        _collider.enabled = true;
+        slimeAnimator = new SlimeAnimator(animator);
+        slimeMover = new SlimeMover(startSpeed, rigid2D);
+        outCollider.enabled = true;
         isCut = false;
         coreCollider.enabled = true;
         gameObject.SetActive(true);
 
-        _slimeMover.SetVelocity();
+        slimeMover.SetVelocity();
     }
 
     private void FixedUpdate()
     {
-        _slimeMover.FixedUpdate();
+        slimeMover.FixedUpdate();
     }
 
     public void Cut()
@@ -50,9 +49,9 @@ public class SlimeController : MonoBehaviour, IPoolable
         if (!isCut)
         {
             SlimeManager.Instance.RemoveList(this);
-            _slimeAnimator.Cut();
-            _slimeMover.Stop();
-            _collider.enabled = false;
+            slimeAnimator.Cut();
+            slimeMover.Stop();
+            outCollider.enabled = false;
             isCut = true;
         }
     }
@@ -61,20 +60,20 @@ public class SlimeController : MonoBehaviour, IPoolable
     {
         GameManager.Instance.AddSquashedNum();
         SlimeManager.Instance.RemoveList(this);
-        _slimeAnimator.Die();
-        _slimeMover.Stop();
-        _collider.enabled = false;
+        slimeAnimator.Die();
+        slimeMover.Stop();
+        outCollider.enabled = false;
     }
 
     public void Stop()
     {
-        _slimeMover.Stop();
-        _collider.enabled = false;
+        slimeMover.Stop();
+        outCollider.enabled = false;
     }
 
     public void DesableAnimator()
     {
-        _slimeAnimator.Desable();
+        slimeAnimator.Desable();
     }
 
     public void Sleep()

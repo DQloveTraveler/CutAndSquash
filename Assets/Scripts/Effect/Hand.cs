@@ -5,19 +5,19 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     [SerializeField] private float lifeTime = 0.5f;
+    [SerializeField] private Collider2D myCollider = null;
 
     private readonly float _cameraShakeDuration = 0.2f;
-    private Collider2D _collider = null;
 
     void Awake()
     {
-        _collider = GetComponent<Collider2D>();
-        _collider.enabled = false;
+        myCollider.enabled = false;
     }
 
-    void Start()
+    private IEnumerator Start()
     {
-        Destroy(transform.root.gameObject, lifeTime);
+        yield return new WaitForSeconds(lifeTime);
+        Destroy(transform.root.gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -38,12 +38,12 @@ public class Hand : MonoBehaviour
 
     public void ColliderON()
     {
-        _collider.enabled = true;
+        myCollider.enabled = true;
     }
 
     public void ColliderOFF()
     {
-        _collider.enabled = false;
+        myCollider.enabled = false;
     }
 
 }

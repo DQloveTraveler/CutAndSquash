@@ -18,9 +18,12 @@ namespace Slime
 
         public void FixedUpdate()
         {
-            var velocity = _rigidbody.velocity;
-            if (velocity.sqrMagnitude > maxMoveSpeed * maxMoveSpeed)
-                _rigidbody.velocity = velocity.normalized * maxMoveSpeed;
+            if (_rigidbody != null)
+            {
+                var velocity = _rigidbody.velocity;
+                if (velocity.sqrMagnitude > maxMoveSpeed * maxMoveSpeed)
+                    _rigidbody.velocity = velocity.normalized * maxMoveSpeed;
+            }
         }
 
         public void SetVelocity()
